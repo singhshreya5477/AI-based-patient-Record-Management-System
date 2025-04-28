@@ -1,0 +1,17 @@
+Disease,Test_1,Test_2,Test_3
+Diabetes,HbA1c,Fasting Blood Sugar,Glucose Tolerance Test
+Heart attack,ECG,Troponin Test,Echocardiogram
+Hypertension,Blood Pressure Monitoring,Lipid Profile,Electrolyte Panel
+Migraine,Neurological Exam,MRI,CT Scan
+Tuberculosis,Chest X-ray,Sputum Test,Mantoux Test
+Malaria,Blood Smear Test,Rapid Diagnostic Test,Complete Blood Count (CBC)
+Dengue,NS1 Antigen Test,CBC,Dengue IgM/IgG
+Psoriasis,Skin Biopsy,Dermatological Exam,None
+Hypothyroidism,TSH Test,T3,T4
+Hepatitis B,HBsAg Test,Liver Function Test,Hepatitis B DNA Test
+Allergy,IgE Antibody Test,Skin Prick Test,Patch Test
+Urinary tract infection,Urine Routine,Urine Culture,Ultrasound of Bladder
+Pneumonia,Chest X-ray,Sputum Culture,CRP Test
+Gastroenteritis,Stool Test,Electrolyte Panel,Urine Test
+Acne,Skin Examination,Hormonal Profile Test,None
+Fungal infection,Skin Scrap Test,Microscopy,Culture Test
