@@ -108,4 +108,4 @@ if st.button("📂 Show All Patient Records"):
 
 # --- Footer ---
 st.markdown("---")
-st.caption("Developed by [Your Name] | AI-Based Patient Record Management System © 2025")
+st.caption("Developed by Shreya & Shravika | AI-Based Patient Record Management System © 2025")
