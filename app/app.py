@@ -12,9 +12,9 @@ le = joblib.load('models/label_encoder.pkl')
 all_symptoms = joblib.load('models/symptom_list.pkl')
 
 # Load and clean additional CSVs
-# Load and clean description CSV
-description_df = pd.read_csv('data/disease_symptom_description.csv')
-description_df.columns = description_df.columns.str.strip().str.lower()
+description_df = pd.read_csv('data/symptom_Description.csv')
+description_df.columns = description_df.columns.str.strip()  # Remove extra spaces
+description_df = description_df[['Disease', 'Description']]  # Use only these 2 columns
 
 # If "name of disease" is a column name, rename it to "disease"
 if 'name of disease' in description_df.columns:
@@ -38,12 +38,11 @@ def predict_disease(user_symptoms):
 
 def get_description(disease):
     disease = disease.strip().lower()
-    row = description_df[description_df['disease'].str.strip().str.lower() == disease]
+    row = description_df[description_df['Disease'].str.strip().str.lower() == disease]
     if not row.empty:
-        symptoms = row['symptoms'].values[0]
-        cures = row['cures'].values[0]
-        return f"**Symptoms:** {symptoms}\n\n**Suggested Cures:** {cures}"
+        return row['Description'].values[0]
     return "No description available."
+
 
 
 def get_precautions(disease):
