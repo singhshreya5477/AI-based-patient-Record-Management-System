@@ -11,10 +11,15 @@ model = joblib.load('models/symptom_disease_model.pkl')
 le = joblib.load('models/label_encoder.pkl')
 all_symptoms = joblib.load('models/symptom_list.pkl')
 
-# Load additional CSVs
+# Load and clean additional CSVs
+# Load and clean description CSV
 description_df = pd.read_csv('data/disease_symptom_description.csv')
-description_df = description_df.iloc[:, :2]
-description_df.columns = ['Disease', 'Description']
+description_df.columns = description_df.columns.str.strip().str.lower()
+
+# If "name of disease" is a column name, rename it to "disease"
+if 'name of disease' in description_df.columns:
+    description_df.rename(columns={'name of disease': 'disease'}, inplace=True)
+
 
 precaution_df = pd.read_csv('data/symptom_precaution.csv')
 precaution_df.columns = precaution_df.columns.str.strip()
@@ -32,8 +37,14 @@ def predict_disease(user_symptoms):
     return disease
 
 def get_description(disease):
-    row = description_df[description_df['Disease'].str.lower() == disease.lower()]
-    return row['Description'].values[0] if not row.empty else "No description available."
+    disease = disease.strip().lower()
+    row = description_df[description_df['disease'].str.strip().str.lower() == disease]
+    if not row.empty:
+        symptoms = row['symptoms'].values[0]
+        cures = row['cures'].values[0]
+        return f"**Symptoms:** {symptoms}\n\n**Suggested Cures:** {cures}"
+    return "No description available."
+
 
 def get_precautions(disease):
     row = precaution_df[precaution_df['Disease'].str.lower() == disease.lower()]
@@ -55,7 +66,6 @@ st.set_page_config(page_title="AI-Based Patient Record Management System", page_
 
 # Sidebar
 st.sidebar.title("🩺 Patient Information")
-
 name = st.sidebar.text_input("Patient Name")
 age = st.sidebar.number_input("Patient Age", min_value=0, max_value=120)
 gender = st.sidebar.selectbox("Patient Gender", ["Male", "Female", "Other"])
